@@ -3,7 +3,7 @@ from transliter import GlagoliticTransliter
 from telebot import types
 from keyboa import Keyboa
 
-TOKEN = '5300210048:AAG6LIB3Ru5z0bxGFX1VlqD25VY_eebP0lQ'
+TOKEN = 'aboba'
 bot = telebot.TeleBot(TOKEN)
 MODE = 'none'
 
