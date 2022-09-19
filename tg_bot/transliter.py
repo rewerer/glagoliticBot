@@ -134,4 +134,37 @@ class GlagoliticTransliter:
                 translited_text = translited_text + letter
         return translited_text
 
+    @classmethod
+    def english_to_gothic(cls, text: str) -> str:
+        translited_text = ""
+        length = len(text)
+        skipped_step = -1
+        for i in range(0, length):
+            if i == skipped_step:
+                continue
+            letter = text[i]
+            if letter == 't' or letter == 'T':
+                if i < (length - 1):
+                    if text[i + 1].lower() == 'h':
+                        translited_text = translited_text + "\U00010338"
+                        skipped_step = i + 1
+                else:
+                    translited_text = translited_text + cls.english_to_gothic_table['t']
+            elif letter == 'h' or letter == 'H':
+                if i < (length - 1):
+                    if text[i + 1].lower() == 'w':
+                        translited_text = translited_text + "\U00010348"
+                        skipped_step = i + 1
+                else:
+                    translited_text = translited_text + cls.english_to_gothic_table['h']
+            elif letter in cls.english_to_gothic_table:
+                translited_text = translited_text + cls.english_to_gothic_table[letter]
+            elif letter.lower() in cls.english_to_gothic_table:
+                translited_text = (
+                        translited_text + cls.english_to_gothic_table[letter.lower()].upper()
+                )
+            else:
+                translited_text = translited_text + letter
+        return translited_text
+
 __all__ = ["GlagoliticTransliter"]
