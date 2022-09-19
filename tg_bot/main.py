@@ -1,6 +1,5 @@
 import telebot
 from transliter import GlagoliticTransliter
-from telebot import types
 from keyboa import Keyboa
 
 TOKEN = 'aboba'
@@ -50,13 +49,16 @@ def glagolitic_to_cyrillic_endpoint(m, res=False):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     global MODE
+    sended_message = ''
     if MODE == 'cyrillic_to_glagolitic':
-        bot.send_message(message.chat.id, GlagoliticTransliter.cyrillic_to_glagolitic(message.text))
+        sended_message = GlagoliticTransliter.cyrillic_to_glagolitic(message.text)
+        bot.send_message(message.chat.id, sended_message)
     elif MODE == 'glagolitic_to_cyrillic':
-        bot.send_message(message.chat.id, GlagoliticTransliter.glagolitic_to_cyrillic(message.text))
+        sended_message = GlagoliticTransliter.glagolitic_to_cyrillic(message.text)
+        bot.send_message(message.chat.id, sended_message)
     else:
         bot.send_message(message.chat.id, 'Выберите режим!')
     print(message.chat.id, ': ', message.text)
-
+    print(message.chat.id, '(bot): ', sended_message)
 
 bot.polling(none_stop=True, interval=0)
